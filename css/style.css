@@ -1,0 +1,60 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+header{
+    background-color: midnightblue;
+    width: 100%;
+    height: 70%;
+    position: sticky;
+    top: 0;
+}
+header nav ul li a{
+    color: aliceblue;
+    list-style: none;
+}
+
+header h1{
+    color: antiquewhite;
+    text-align: center;
+    justify-content: center;
+}
+h3{
+    text-align: center;
+    color: rgb(28, 9, 100);
+    margin-top: 50px;
+
+}
+.fcmm{
+        justify-content: center;
+        margin-right: 43.3%;
+        margin-left: 43.3%;
+        margin-top: 3%;
+}
+.fcmm button{
+    background-color: midnightblue;
+    color: aliceblue;
+    border-radius: 5px;
+}
+.btncancion{
+    justify-content: center;
+    margin-right: 43.3%;
+    margin-left: 43.3%;
+    margin-top: 3%;
+}
+.btncancion button{
+    background-color: rgb(8, 105, 76);
+    color: aliceblue;
+    border-radius: 5px;
+}
+
+
+.textoindex{
+    text-align: justify;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: midnightblue;
+    font-size: 20px;
+    margin-top: 50px;
+    padding: 90px;
+}
