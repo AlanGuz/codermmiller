@@ -1,0 +1,134 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+header {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    gap: 2rem;
+}
+
+/* Contenedor de productos y carrito */
+#productos {
+
+    flex: 3;
+    max-width: 900px;
+}
+
+#carrito {
+    flex: 1;
+    max-width: 280px;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+    position: sticky;
+    top: 2rem;
+}
+
+.productos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+    justify-content: center;
+}
+
+.producto {
+    background-color: #d6cfcf;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.producto:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.producto img {
+    width: 100%;
+    max-height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.producto h3 {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+}
+
+.producto p {
+    margin: 0.3rem 0;
+}
+
+.producto button {
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #222;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.producto button:hover {
+    background-color: #444;
+}
+
+/* Carrito */
+#carrito h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+#carrito ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+}
+
+#carrito li {
+    border-bottom: 1px solid #eee;
+    padding: 0.5rem 0;
+    font-size: 0.95rem;
+}
+
+#carrito p {
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+#vaciarCarritoBtn {
+    width: 100%;
+    background-color: #c0392b;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#vaciarCarritoBtn:hover {
+    background-color: #e74c3c;
+}
