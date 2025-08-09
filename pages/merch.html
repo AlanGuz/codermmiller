@@ -24,7 +24,24 @@
             <ul id="carritoLista"></ul>
             <p id="total">Total: $0</p>
             <button id="vaciarCarritoBtn">Vaciar carrito</button>
+            <button id="finalizarCompraBtn">Finalizar compra</button>
+        <div id="formularioCompra" class="modal">
+            <div class="modal-content">
+                <span id="cerrarFormulario" class="close">&times;</span>
+                <h2>Finalizar compra</h2>
+                <form id="compraForm">
+                    <label>Nombre completo:</label>
+                    <input type="text" name="nombre" required>            
+                    <label>Email:</label>
+                    <input type="email" name="email" required>
+                    <label>Dirección de envío:</label>
+                    <input type="text" name="direccion" required>
+                    <button type="submit">Confirmar compra</button>
+                </form>
+            </div>
+        </div>
     </section>
+    
     </main>
     <button id="abrirCarritoBtn" title="Ver Carrito">🛒</button>
 

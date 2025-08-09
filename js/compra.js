@@ -157,3 +157,35 @@ cerrarCarritoBtn.addEventListener('click', () => {
     carritoSection.classList.remove('activo');
     abrirCarritoBtn.style.display = 'block'; // Muestra el botón al cerrar carrito
 });
+
+
+
+
+
+
+// Abrir formulario
+document.getElementById('finalizarCompraBtn').addEventListener('click', () => {
+    document.getElementById('formularioCompra').style.display = 'block';
+});
+
+// Cerrar formulario
+document.getElementById('cerrarFormulario').addEventListener('click', () => {
+    document.getElementById('formularioCompra').style.display = 'none';
+});
+
+// Enviar formulario
+document.getElementById('compraForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    Swal.fire({
+        title: 'Compra realizada con éxito 🎉',
+        text: 'Te enviaremos un mail con la confirmación.',
+        icon: 'success',
+        confirmButtonText: 'Aceptar'
+    });
+
+    document.getElementById('formularioCompra').style.display = 'none';
+    carritoLista.innerHTML = '';
+    carrito.length = 0;
+    actualizarTotal();
+});
