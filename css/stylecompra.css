@@ -132,3 +132,60 @@ main {
 #vaciarCarritoBtn:hover {
     background-color: #e74c3c;
 }
+
+/* Botón flotante */
+#abrirCarritoBtn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #1a2c2e;
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1rem;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.4rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 1100;
+    transition: background-color 0.2s ease;
+}
+#abrirCarritoBtn:hover {
+    background-color: #1f393b;
+}
+
+/* Carrito lateral desplegable */
+#carrito {
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    max-width: 320px;
+    background-color: #fff;
+    border-left: 1px solid #ddd;
+    padding: 1rem;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+/* Carrito visible */
+#carrito.activo {
+    transform: translateX(0);
+}
+
+/* Botón cerrar dentro del carrito */
+#cerrarCarritoBtn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+    float: right;
+}
+
+.swal2-container {
+z-index: 2000 !important;
+}
+

@@ -1,62 +1,159 @@
-const productos = [
-    { id: 1, nombre: "Remera Oficial", precio: 58000, imagen: "../medios/remera.png" },
-    { id: 2, nombre: "Gorra Don't Trip", precio: 30000, imagen: "../medios/gorra.jfif" },
-    { id: 3, nombre: "Vinilo Firmado", precio: 90000, imagen: "../medios/vinilo.jfif" },
-    { id: 4, nombre: "Buzo Oversize", precio: 150000, imagen: "../medios/buzo.png" },
-    { id: 5, nombre: "Stickers", precio: 3000, imagen: "../medios/stickers.jpg" },
-    { id: 6, nombre: "Vinilo", precio: 50000, imagen: "../medios/disquito.jfif" },
-    { id: 7, nombre: "Funko Pop", precio: 65000, imagen: "../medios/funko.jfif" },
-    { id: 8, nombre: "Gorra OITM", precio: 30000, imagen: "../medios/gorrita.jfif" },
-];
 
-// carrito inicio desde localStorage
-let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+let productos = [];
+let carritoProductos = JSON.parse(localStorage.getItem("carrito")) || [];
 
-// elementos DOM
+// Elementos DOM
 const productosContainer = document.getElementById("productosContainer");
 const carritoLista = document.getElementById("carritoLista");
 const totalTexto = document.getElementById("total");
+const vaciarCarritoBtn = document.getElementById("vaciarCarritoBtn");
 
-// para ver los productos en el HTML
-function mostrarProductos() {
+//DOM carrito 
+const carritoSection = document.getElementById('carrito');
+
+// botón flotante
+const abrirCarritoBtn = document.getElementById('abrirCarritoBtn');
+
+const cerrarCarritoBtn = document.createElement('button');
+cerrarCarritoBtn.id = 'cerrarCarritoBtn';
+cerrarCarritoBtn.innerHTML = '&times;';
+carritoSection.insertBefore(cerrarCarritoBtn, carritoSection.firstChild);
+
+// Cargar productos desde JSON
+function cargarProductos() {
+    fetch('../productos.json')
+        .then(res => res.json())
+        .then(data => {
+            productos = data;
+            mostrarProductos(productos);
+            actualizarCarrito();
+        })
+        .catch(err => {
+            console.error('Error cargando productos:', err);
+            Swal.fire('Error', 'No se pudieron cargar los productos', 'error');
+        });
+}
+
+// Mostrar productos 
+function mostrarProductos(arr) {
     productosContainer.innerHTML = "";
-    productos.forEach((producto) => {
+    arr.forEach(prod => {
         const div = document.createElement("div");
         div.classList.add("producto");
         div.innerHTML = `
-            <img src="${producto.imagen}" alt="${producto.nombre}" />
-            <h3>${producto.nombre}</h3>
-            <p>$${producto.precio}</p>
-            <button onclick="agregarAlCarrito(${producto.id})">Agregar</button>
+            <img src="${prod.imagen}" alt="${prod.nombre}" />
+            <h3>${prod.nombre}</h3>
+            <p>$${prod.precio}</p>
+            <button class="btn-agregar" data-id="${prod.id}">Agregar</button>
         `;
-    productosContainer.appendChild(div);
+        productosContainer.appendChild(div);
+    });
+
+    const botones = document.querySelectorAll(".btn-agregar");
+    botones.forEach(boton => {
+        boton.addEventListener("click", () => {
+            const id = parseInt(boton.getAttribute("data-id"));
+            agregarAlCarrito(id);
+        });
     });
 }
+
 function agregarAlCarrito(id) {
-    const producto = productos.find((p) => p.id === id);
-    carrito.push(producto);
+    const producto = productos.find(p => p.id === id);
+    if (!producto) return;
+
+    const productoEnCarrito = carritoProductos.find(p => p.id === id);
+    if (productoEnCarrito) {
+        productoEnCarrito.cantidad++;
+    } else {
+        carritoProductos.push({...producto, cantidad: 1});
+    }
+
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: `${producto.nombre} agregado al carrito`,
+        showConfirmButton: false,
+        timer: 1000,
+        toast: true
+    });
+
     actualizarCarrito();
 }
+
+// Mostrar carrito 
 function actualizarCarrito() {
     carritoLista.innerHTML = "";
     let total = 0;
 
-    carrito.forEach((producto) => {
+    carritoProductos.forEach(prod => {
         const li = document.createElement("li");
-        li.textContent = `${producto.nombre} - $${producto.precio}`;
+        li.textContent = `${prod.nombre} x${prod.cantidad} - $${prod.precio * prod.cantidad}`;
+
+        //  eliminar un producto
+        const btnEliminar = document.createElement("button");
+        btnEliminar.textContent = "X";
+        btnEliminar.style.marginLeft = "10px";
+        btnEliminar.addEventListener("click", () => {
+            eliminarDelCarrito(prod.id);
+        });
+        li.appendChild(btnEliminar);
+
         carritoLista.appendChild(li);
-        total += producto.precio;
+
+        total += prod.precio * prod.cantidad;
     });
 
     totalTexto.textContent = `Total: $${total}`;
-    localStorage.setItem("carrito", JSON.stringify(carrito));
+    localStorage.setItem("carrito", JSON.stringify(carritoProductos));
 }
-mostrarProductos();
-actualizarCarrito();
 
-// vaciar carrito
-document.getElementById("vaciarCarritoBtn").addEventListener("click", () => {
-    carrito = [];
+
+function eliminarDelCarrito(id) {
+    carritoProductos = carritoProductos.filter(prod => prod.id !== id);
     actualizarCarrito();
+    Swal.fire({
+        position: 'top-end',
+        icon: 'info',
+        title: 'Producto eliminado del carrito',
+        showConfirmButton: false,
+        timer: 1000,
+        toast: true
+        });
+}
+
+// Vaciar carrito
+vaciarCarritoBtn.addEventListener("click", () => {
+    carritoProductos = [];
+    actualizarCarrito();
+    Swal.fire({
+        icon: 'warning',
+        title: 'Carrito vaciado',
+        timer: 1000,
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+    });
 });
 
+//  carrito desplegable
+abrirCarritoBtn.addEventListener('click', () => {
+    carritoSection.classList.add('activo');
+});
+
+cerrarCarritoBtn.addEventListener('click', () => {
+    carritoSection.classList.remove('activo');
+});
+
+cargarProductos();
+actualizarCarrito();
+
+abrirCarritoBtn.addEventListener('click', () => {
+    carritoSection.classList.add('activo');
+    abrirCarritoBtn.style.display = 'none';  // Oculta el botón al abrir carrito
+});
+
+cerrarCarritoBtn.addEventListener('click', () => {
+    carritoSection.classList.remove('activo');
+    abrirCarritoBtn.style.display = 'block'; // Muestra el botón al cerrar carrito
+});

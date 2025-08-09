@@ -1,0 +1,10 @@
+[
+    { "id": 1, "nombre": "Remera Oficial", "precio": 58000, "imagen": "../medios/remera.png" },
+    { "id": 2, "nombre": "Gorra Don't Trip", "precio": 30000, "imagen": "../medios/gorra.jfif" },
+    { "id": 3, "nombre": "Vinilo Firmado", "precio": 90000, "imagen": "../medios/vinilo.jfif" },
+    { "id": 4, "nombre": "Buzo Oversize", "precio": 150000, "imagen": "../medios/buzo.png" },
+    { "id": 5, "nombre": "Stickers", "precio": 3000, "imagen": "../medios/stickers.jpg" },
+    { "id": 6, "nombre": "Vinilo", "precio": 50000, "imagen": "../medios/disquito.jfif" },
+    { "id": 7, "nombre": "Funko Pop", "precio": 65000, "imagen": "../medios/funko.jfif" },
+    { "id": 8, "nombre": "Gorra OITM", "precio": 30000, "imagen": "../medios/gorrita.jfif" }
+]
